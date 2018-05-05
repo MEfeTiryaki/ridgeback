@@ -16,7 +16,12 @@
   <run_depend>lms1xx</run_depend>
   <run_depend>urdf</run_depend>
   <run_depend>xacro</run_depend>
+  <run_depend>aruco_gazebo</run_depend>
+
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>cri_efe_aruco</run_depend>
 
   <export>
+    <gazebo_ros gazebo_media_path="${prefix}"/>
   </export>
 </package>

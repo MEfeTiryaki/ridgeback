@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Base -->
+  <xacro:macro name="base"  params="prefix ">
+
+    <link name="base_link"></link>
+
+    <!-- CHASSIS -->
+    <joint name="base_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="base_link"/>
+      <child link="chassis_link" />
+    </joint>
+
+    <link name="chassis_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/body.stl"/>
+        </geometry>
+        <material name="black" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/body-collision.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0.012 0.002 0.067" rpy="${PI/2} 0 ${PI/2}"/>
+        <mass value="165.304"/>
+        <inertia
+          ixx="4.4744" ixy="0.03098" ixz="0.003647"
+          iyy="7.1624" iyz="0.1228"
+          izz="4.6155"/>
+      </inertial>
+    </link>
+
+
+
+    <joint name="right_side_cover_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="chassis_link"/>
+      <child link="right_side_cover_link" />
+    </joint>
+    <joint name="left_side_cover_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="chassis_link"/>
+      <child link="left_side_cover_link" />
+    </joint>
+
+    <link name="left_side_cover_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 ${PI}" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/side-cover.stl"/>
+        </geometry>
+        <material name="yellow" />
+      </visual>
+    </link>
+
+    <link name="right_side_cover_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/side-cover.stl"/>
+        </geometry>
+        <material name="yellow" />
+      </visual>
+    </link>
+
+    <joint name="front_cover_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="chassis_link"/>
+      <child link="front_cover_link" />
+    </joint>
+
+    <link name="front_cover_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/end-cover.stl" />
+        </geometry>
+        <material name="black" />
+      </visual>
+    </link>
+
+    <joint name="rear_cover_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="chassis_link"/>
+      <child link="rear_cover_link" />
+    </joint>
+
+    <link name="rear_cover_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 ${PI}" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/end-cover.stl" />
+        </geometry>
+        <material name="black" />
+      </visual>
+    </link>
+
+    <joint name="front_lights_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="chassis_link"/>
+      <child link="front_lights_link" />
+    </joint>
+    <joint name="rear_lights_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="chassis_link"/>
+      <child link="rear_lights_link" />
+    </joint>
+
+    <link name="front_lights_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/lights.stl" />
+        </geometry>
+        <material name="white" />
+      </visual>
+    </link>
+    <link name="rear_lights_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 ${PI}" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/lights.stl" />
+        </geometry>
+        <material name="red" />
+      </visual>
+    </link>
+
+    <joint name="top_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="chassis_link"/>
+      <child link="top_link" />
+    </joint>
+
+    <link name="top_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/top.stl" />
+        </geometry>
+        <material name="black" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/top.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="axle_joint" type="fixed">
+      <origin xyz="0 0 ${axle_offset}" rpy="0 0 0" />
+      <parent link="chassis_link"/>
+      <child link="axle_link" />
+    </joint>
+
+    <link name="axle_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 ${PI/2} 0" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/axle.stl" />
+        </geometry>
+        <material name="black" />
+      </visual>
+    </link>
+
+
+    <link name="mid_mount" />
+    <joint name="mid_mount_joint" type="fixed">
+      <parent link="base_link" />
+      <child link="mid_mount" />
+      <origin xyz="0 0 ${deck_height}" rpy="0 0 0"/>
+    </joint>
+
+
+    <link name="imu_link">
+      <inertial>
+        <mass value="0.001"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="${dummy_inertia}" ixy="0.0" ixz="0.0" iyy="${dummy_inertia}" iyz="0.0" izz="${dummy_inertia}"/>
+      </inertial>
+    </link>
+    <joint name="imu_joint" type="fixed">
+      <parent link="chassis_link" />
+      <child link="imu_link" />
+      <origin xyz="${imu_offset_x} ${imu_offset_y} ${imu_offset_z}" rpy="0 0 0"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

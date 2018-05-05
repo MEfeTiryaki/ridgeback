@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find ridgeback_description)/urdf/markers/marker_0_parameters.urdf.xacro"/>
+
+     <!--mesh filename="package://ridgeback_description/urdf/markers/marker.dae" scale="${marker_ratio} ${marker_ratio} ${marker_ratio}"/-->
+
+  <!-- Base -->
+  <xacro:macro name="marker_0">
+
+    <link name="pad_0">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${w_pad} ${h_pad} 0.001"/>
+        </geometry>
+        <material name="black" />
+      </visual>
+    </link>
+
+    <joint name="pad_joint" type="fixed">
+      <parent link="top_link"/>
+      <child link="pad_0" />
+      <origin xyz="0 0.2 ${marker_height}" rpy="0 0 0"/>
+    </joint>
+
+    <link name="marker_0">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${w_marker} ${h_marker} 0.001"/>
+        </geometry>
+        <material name="black" />
+      </visual>
+    </link>
+
+    <joint name="marker_joint" type="fixed">
+      <parent link="pad_0"/>
+      <child link="marker_0" />
+      <origin xyz="${x_marker} ${y_marker}  0.001" rpy="0 0 0"/>
+    </joint>
+    <gazebo reference="marker_0">
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+    <link name="shape_0_1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="${w_0} ${h_0} 0.001"/>
+        </geometry>
+        <material name="white" />
+      </visual>
+    </link>
+
+    <joint name="marker_0_shape_0_1" type="fixed">
+      <parent link="marker_0"/>
+      <child link="shape_0_1" />
+      <origin xyz="${x_0} ${y_0} 0.001" rpy="0 0 0"/>
+    </joint>
+    <gazebo reference="shape_0_1">
+      <material>Gazebo/White</material>
+    </gazebo>
+  </xacro:macro>
+
+</robot>
