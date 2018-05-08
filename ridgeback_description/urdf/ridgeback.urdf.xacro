@@ -47,21 +47,12 @@
   </xacro:rocker>
 
 
-
-  <!--xacro:marker_6 name="marker6" pad_base="top_link" marker_pos="0 0.2 0.285" scale="2.0"/-->
-
-  <xacro:multi_marker_0 pad_base="top_link" x="0" y="0.2" z="0.29" yaw="0.0" scale="1.0"/>
-
+  <xacro:multi_marker_0 pad_base="top_link" x="0.2" y="-0.2" z="0.29" yaw="0.0" scale="0.9"/>
 
 
 
   <!-- Bring in simulation data for Gazebo. -->
   <xacro:include filename="$(find ridgeback_description)/urdf/ridgeback.gazebo" />
-  <!-- Optional standard accessories, including their simulation data. The rendering
-       of these into the final description is controlled by optenv variables, which
-       default each one to off.-->
   <xacro:include filename="$(find ridgeback_description)/urdf/accessories.urdf.xacro" />
-  <!-- Optional custom includes. -->
   <xacro:include filename="$(optenv RIDGEBACK_URDF_EXTRAS empty.urdf)" />
-
 </robot>
