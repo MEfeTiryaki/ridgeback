@@ -2,6 +2,8 @@
 <robot name="ridgeback" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="PI" value="3.1415926535897931" />
 
+  <xacro:property name="simulation" value="true" />
+
   <xacro:property name="wheel_radius" value="0.0759" />
   <xacro:property name="wheel_width" value="0.0790" />
 
@@ -53,6 +55,9 @@
 
   <!-- Bring in simulation data for Gazebo. -->
   <xacro:include filename="$(find ridgeback_description)/urdf/ridgeback.gazebo" />
+  <xacro:if value="${simulation}">
+    <xacro:include filename="$(find cri_efe_description)/urdf/include/ridgeback_plugin.gazebo.xacro" />
+  </xacro:if>
   <xacro:include filename="$(find ridgeback_description)/urdf/accessories.urdf.xacro" />
   <xacro:include filename="$(optenv RIDGEBACK_URDF_EXTRAS empty.urdf)" />
 </robot>
