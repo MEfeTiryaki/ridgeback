@@ -2,11 +2,11 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <!-- Base -->
-  <xacro:macro name="rocker"  params="prefix joint_type location *joint_limits">
 
+  <!-- ROCKER -->
+  <xacro:macro name="rocker"  params="robot_name prefix joint_type location *joint_limits">
 
-    <link name="${prefix}_rocker_link">
+    <link name="${robot_name}_${prefix}_rocker_link">
       <visual>
         <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}" />
         <geometry>
@@ -24,24 +24,22 @@
       </inertial>
     </link>
 
-    <joint name="${prefix}_rocker" type="${joint_type}">
-      <parent link="axle_link"/>
-      <child link="${prefix}_rocker_link" />
+    <joint name="${robot_name}_${prefix}_rocker" type="${joint_type}">
+      <parent link="${robot_name}_axle_link"/>
+      <child link="${robot_name}_${prefix}_rocker_link" />
       <origin xyz="${location*rocker_offset} 0 0" rpy="0 0 0" />
       <axis xyz="1 0 0" />
       <xacro:insert_block name="joint_limits" />
     </joint>
 
-    <xacro:wheel prefix="${prefix}" side="left">
+    <!-- WHEELS-->
+    <xacro:wheel robot_name="${robot_name}" prefix="${prefix}" side="left">
       <origin xyz="0 ${rocker_width/2 + wheel_width/2} 0" rpy="0 0 0" />
     </xacro:wheel>
-    <xacro:wheel prefix="${prefix}" side="right">
+
+    <xacro:wheel robot_name="${robot_name}" prefix="${prefix}" side="right">
       <origin xyz="0 ${-(rocker_width/2 + wheel_width/2)} 0" rpy="0 0 0" />
     </xacro:wheel>
-
-
-
-
 
   </xacro:macro>
 

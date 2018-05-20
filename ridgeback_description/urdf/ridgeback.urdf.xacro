@@ -33,8 +33,11 @@
   <xacro:include filename="$(find ridgeback_description)/urdf/rocker/rocker.urdf.xacro"/>
   <xacro:include filename="$(find ridgeback_description)/urdf/wheel/wheel.urdf.xacro"/>
 
-  <xacro:include filename="$(find cri_efe_aruco)/urdf/single_markers/marker_6.urdf.xacro"/>
-  <xacro:include filename="$(find cri_efe_aruco)/urdf/multi_markers/multi_marker_0.urdf.xacro"/>
+  <!--xacro:include filename="$(find cri_efe_aruco)/urdf/multi_markers/multi_marker_0.urdf.xacro"/>
+  <xacro:include filename="$(find cri_efe_aruco)/urdf/multi_markers/multi_marker_1.urdf.xacro"/>
+  -->
+  <xacro:include filename="$(find cri_efe_aruco)/urdf/multi_markers/quad_marker_0.urdf.xacro"/>
+  <xacro:include filename="$(find cri_efe_aruco)/urdf/multi_markers/quad_marker_1.urdf.xacro"/>
 
 
 
@@ -49,15 +52,13 @@
   </xacro:rocker>
 
 
-  <xacro:multi_marker_0 pad_base="top_link" x="0.2" y="-0.2" z="0.29" yaw="0.0" scale="0.9"/>
+  <xacro:quad_marker_0 pad_base="top_link" x="0.25" y="-0.25" z="0.29" yaw="0.0" scale="1.2"/>
+  <xacro:quad_marker_1 pad_base="top_link" x="0.25" y="0.25" z="0.29" yaw="0.0" scale="1.2"/>
 
 
 
   <!-- Bring in simulation data for Gazebo. -->
   <xacro:include filename="$(find ridgeback_description)/urdf/ridgeback.gazebo" />
-  <xacro:if value="${simulation}">
-    <xacro:include filename="$(find cri_efe_description)/urdf/include/ridgeback_plugin.gazebo.xacro" />
-  </xacro:if>
   <xacro:include filename="$(find ridgeback_description)/urdf/accessories.urdf.xacro" />
   <xacro:include filename="$(optenv RIDGEBACK_URDF_EXTRAS empty.urdf)" />
 </robot>

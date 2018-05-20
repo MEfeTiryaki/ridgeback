@@ -3,18 +3,17 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- Base -->
-  <xacro:macro name="base"  params="prefix ">
+  <xacro:macro name="base"  params="robot_name">
 
-    <link name="base_link"></link>
+    <link name="${robot_name}_base_link"></link>
 
     <!-- CHASSIS -->
-    <joint name="base_link_joint" type="fixed">
+    <joint name="${robot_name}_base_link_chasis_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <parent link="base_link"/>
-      <child link="chassis_link" />
+      <parent link="${robot_name}_base_link"/>
+      <child link="${robot_name}_chassis_link" />
     </joint>
-
-    <link name="chassis_link">
+    <link name="${robot_name}_chassis_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -22,12 +21,6 @@
         </geometry>
         <material name="black" />
       </visual>
-      <collision>
-        <origin xyz="0 0 0"/>
-        <geometry>
-          <mesh filename="package://ridgeback_description/meshes/body-collision.stl"/>
-        </geometry>
-      </collision>
       <inertial>
         <origin xyz="0.012 0.002 0.067" rpy="${PI/2} 0 ${PI/2}"/>
         <mass value="165.304"/>
@@ -38,30 +31,12 @@
       </inertial>
     </link>
 
-
-
-    <joint name="right_side_cover_link_joint" type="fixed">
+    <joint name="${robot_name}_right_side_cover_link_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <parent link="chassis_link"/>
-      <child link="right_side_cover_link" />
+      <parent link="${robot_name}_chassis_link"/>
+      <child link="${robot_name}_right_side_cover_link" />
     </joint>
-    <joint name="left_side_cover_link_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <parent link="chassis_link"/>
-      <child link="left_side_cover_link" />
-    </joint>
-
-    <link name="left_side_cover_link">
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 ${PI}" />
-        <geometry>
-          <mesh filename="package://ridgeback_description/meshes/side-cover.stl"/>
-        </geometry>
-        <material name="yellow" />
-      </visual>
-    </link>
-
-    <link name="right_side_cover_link">
+    <link name="${robot_name}_right_side_cover_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -71,13 +46,28 @@
       </visual>
     </link>
 
-    <joint name="front_cover_link_joint" type="fixed">
+    <joint name="${robot_name}_left_side_cover_link_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <parent link="chassis_link"/>
-      <child link="front_cover_link" />
+      <parent link="${robot_name}_chassis_link"/>
+      <child link="${robot_name}_left_side_cover_link" />
     </joint>
+    <link name="${robot_name}_left_side_cover_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 ${PI}" />
+        <geometry>
+          <mesh filename="package://ridgeback_description/meshes/side-cover.stl"/>
+        </geometry>
+        <material name="yellow" />
+      </visual>
+    </link>
 
-    <link name="front_cover_link">
+
+    <joint name="${robot_name}_front_cover_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${robot_name}_chassis_link"/>
+      <child link="${robot_name}_front_cover_link" />
+    </joint>
+    <link name="${robot_name}_front_cover_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -87,13 +77,12 @@
       </visual>
     </link>
 
-    <joint name="rear_cover_link_joint" type="fixed">
+    <joint name="${robot_name}_rear_cover_link_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <parent link="chassis_link"/>
-      <child link="rear_cover_link" />
+      <parent link="${robot_name}_chassis_link"/>
+      <child link="${robot_name}_rear_cover_link" />
     </joint>
-
-    <link name="rear_cover_link">
+    <link name="${robot_name}_rear_cover_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 ${PI}" />
         <geometry>
@@ -103,18 +92,12 @@
       </visual>
     </link>
 
-    <joint name="front_lights_link_joint" type="fixed">
+    <joint name="${robot_name}_front_lights_link_joint" type="fixed">
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <parent link="chassis_link"/>
-      <child link="front_lights_link" />
+      <parent link="${robot_name}_chassis_link"/>
+      <child link="${robot_name}_front_lights_link" />
     </joint>
-    <joint name="rear_lights_link_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <parent link="chassis_link"/>
-      <child link="rear_lights_link" />
-    </joint>
-
-    <link name="front_lights_link">
+    <link name="${robot_name}_front_lights_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -123,7 +106,13 @@
         <material name="white" />
       </visual>
     </link>
-    <link name="rear_lights_link">
+
+    <joint name="${robot_name}_rear_lights_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${robot_name}_chassis_link"/>
+      <child link="${robot_name}_rear_lights_link" />
+    </joint>
+    <link name="${robot_name}_rear_lights_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 ${PI}" />
         <geometry>
@@ -133,13 +122,13 @@
       </visual>
     </link>
 
-    <joint name="top_link_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <parent link="chassis_link"/>
-      <child link="top_link" />
-    </joint>
 
-    <link name="top_link">
+    <joint name="${robot_name}_top_link_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${robot_name}_chassis_link"/>
+      <child link="${robot_name}_top_link" />
+    </joint>
+    <link name="${robot_name}_top_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -147,21 +136,14 @@
         </geometry>
         <material name="black" />
       </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
-          <mesh filename="package://ridgeback_description/meshes/top.stl"/>
-        </geometry>
-      </collision>
     </link>
 
-    <joint name="axle_joint" type="fixed">
+    <joint name="${robot_name}_axle_joint" type="fixed">
       <origin xyz="0 0 ${axle_offset}" rpy="0 0 0" />
-      <parent link="chassis_link"/>
-      <child link="axle_link" />
+      <parent link="${robot_name}_chassis_link"/>
+      <child link="${robot_name}_axle_link" />
     </joint>
-
-    <link name="axle_link">
+    <link name="${robot_name}_axle_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 ${PI/2} 0" />
         <geometry>
@@ -172,24 +154,24 @@
     </link>
 
 
-    <link name="mid_mount" />
+    <link name="${robot_name}_mid_mount" />
     <joint name="mid_mount_joint" type="fixed">
-      <parent link="base_link" />
-      <child link="mid_mount" />
+      <parent link="${robot_name}_base_link" />
+      <child link="${robot_name}_mid_mount" />
       <origin xyz="0 0 ${deck_height}" rpy="0 0 0"/>
     </joint>
 
 
-    <link name="imu_link">
+    <link name="${robot_name}_imu_link">
       <inertial>
         <mass value="0.001"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <inertia ixx="${dummy_inertia}" ixy="0.0" ixz="0.0" iyy="${dummy_inertia}" iyz="0.0" izz="${dummy_inertia}"/>
       </inertial>
     </link>
-    <joint name="imu_joint" type="fixed">
-      <parent link="chassis_link" />
-      <child link="imu_link" />
+    <joint name="${robot_name}_imu_joint" type="fixed">
+      <parent link="${robot_name}_chassis_link" />
+      <child link="${robot_name}_imu_link" />
       <origin xyz="${imu_offset_x} ${imu_offset_y} ${imu_offset_z}" rpy="0 0 0"/>
     </joint>
 

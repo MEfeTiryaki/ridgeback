@@ -3,9 +3,9 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- Base -->
-  <xacro:macro name="wheel"  params="prefix side *joint_pose">
+  <xacro:macro name="wheel"  params="robot_name prefix side *joint_pose">
 
-    <link name="${prefix}_${side}_wheel_link">
+    <link name="${robot_name}_${prefix}_${side}_wheel_link">
       <visual>
         <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
         <geometry>
@@ -29,23 +29,22 @@
       </inertial>
     </link>
 
-    <joint name="${prefix}_${side}_wheel" type="continuous">
-      <parent link="${prefix}_rocker_link"/>
-      <child link="${prefix}_${side}_wheel_link" />
+    <joint name="${robot_name}_${prefix}_${side}_wheel" type="continuous">
+      <parent link="${robot_name}_${prefix}_rocker_link"/>
+      <child link="${robot_name}_${prefix}_${side}_wheel_link" />
       <xacro:insert_block name="joint_pose" />
       <axis xyz="0 1 0" />
     </joint>
 
-    <transmission name="${prefix}_wheel_trans">
+    <transmission name="${robot_name}_${prefix}_wheel_trans">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${prefix}_${side}_wheel">
+      <joint name="${robot_name}_${prefix}_${side}_wheel">
         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       </joint>
-      <actuator name="${prefix}_${side}_actuator">
+      <actuator name="${robot_name}_${prefix}_${side}_actuator">
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>
-
   </xacro:macro>
 
 </robot>
