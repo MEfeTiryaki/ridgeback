@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <xacro:include filename="$(find ridgeback_description)/urdf/ridgeback_parameters.urdf.xacro"/>
+  <xacro:include filename="$(find ridgeback_description)/urdf/base/base.urdf.xacro"/>
+  <xacro:include filename="$(find ridgeback_description)/urdf/rocker/rocker.urdf.xacro"/>
+  <xacro:include filename="$(find ridgeback_description)/urdf/wheel/wheel.urdf.xacro"/>
+
+  <xacro:macro name="ridgeback" params="robot_name">
+
+    <xacro:base robot_name="${robot_name}"/>
+    <xacro:rocker robot_name="${robot_name}" prefix="front" joint_type="revolute" location="1" >
+      <limit lower="-0.08726" upper="0.08726" effort="0" velocity="0" />
+    </xacro:rocker>
+
+    <xacro:rocker robot_name="${robot_name}" prefix="rear" joint_type="fixed" location="-1" >
+      <limit effort="0" velocity="0" />
+    </xacro:rocker>
+
+    <xacro:include filename="$(find ridgeback_description)/urdf/ridgeback.gazebo" />
+    <xacro:include filename="$(find ridgeback_description)/urdf/accessories.urdf.xacro" />
+  </xacro:macro>
+
+</robot>
