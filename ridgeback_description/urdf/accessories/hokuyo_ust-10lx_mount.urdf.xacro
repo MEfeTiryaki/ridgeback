@@ -2,15 +2,15 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
-  <xacro:macro name="hokuyo_ust-10lx_mount" params="prefix topic location">
+  <xacro:macro name="hokuyo_ust-10lx_mount" params="robot_name prefix topic location">
 
-    <joint name="${prefix}_laser_joint" type="fixed">
+    <joint name="${robot_name}_${prefix}_laser_joint" type="fixed">
       <origin xyz="${location * 0.3932} 0 0.2330" rpy="0 0 ${PI/2 - (location * PI/2)}" />
-      <parent link="chassis_link" />
-      <child link="${prefix}_laser" />
+      <parent link="${robot_name}_chassis_link" />
+      <child link="${robot_name}_${prefix}_laser" />
     </joint>
 
-    <link name="${prefix}_laser">
+    <link name="${robot_name}_${prefix}_laser">
       <inertial>
         <mass value="0.130" />
         <origin xyz="0 0 0" />
@@ -34,9 +34,9 @@
       </collision>
     </link>
 
-    <gazebo reference="${prefix}_laser">
+    <gazebo reference="${robot_name}_${prefix}_laser">
       <turnGravityOff>false</turnGravityOff>
-      <sensor type="ray" name="${prefix}_laser">
+      <sensor type="ray" name="${robot_name}_${prefix}_laser">
         <pose>0 0 0 0 0 0</pose>
         <visualize>false</visualize>
         <update_rate>50</update_rate>
@@ -61,8 +61,8 @@
           </noise>
         </ray>
         <plugin name="gazebo_ros_laser" filename="libgazebo_ros_laser.so">
-          <topicName>${topic}</topicName>
-          <frameName>${prefix}_laser</frameName>
+          <topicName>${robot_name}_${topic}</topicName>
+          <frameName>${robot_name}_${prefix}_laser</frameName>
           <hokuyoMinIntensity>101</hokuyoMinIntensity>
         </plugin>
       </sensor>

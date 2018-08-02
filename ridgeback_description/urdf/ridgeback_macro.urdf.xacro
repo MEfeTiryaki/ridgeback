@@ -18,7 +18,6 @@
       <limit effort="0" velocity="0" />
     </xacro:rocker>
 
-    <xacro:include filename="$(find ridgeback_description)/urdf/ridgeback.gazebo" />
     <xacro:include filename="$(find ridgeback_description)/urdf/accessories.urdf.xacro" />
   </xacro:macro>
 
